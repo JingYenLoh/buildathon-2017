@@ -7,7 +7,7 @@ exports.index = (req, res) => {
     _id: { $in: req.user.quizzes }
   }).then(quizzes => {
     res.render('quiz/index', {
-      title: 'Create',
+      title: 'Quizzes',
       quizzes
     });
   });
