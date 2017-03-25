@@ -2,13 +2,19 @@ const User = require('../models/User');
 const Group = require('../models/Group');
 
 exports.index = (req, res) => {
+  let groupsTeaching;
   Group.find({
     _id: { $in: req.user.groupsTeaching }
-  })
-  .then(groupsTeaching => {
+  }).then(_groupsTeaching => {
+    groupsTeaching = _groupsTeaching;
+    return Group.find({
+      _id: {$in: req.user.groupsLearning}
+    });
+  }).then(groupsLearning => {
     res.render('group/index', {
       title: 'Groups',
-      groupsTeaching
+      groupsTeaching,
+      groupsLearning
     });
   });
 };
@@ -62,3 +68,39 @@ exports.getCreateGroup = (req, res) => {
   });
 };
 
+/**
+ * GET /group/join
+ * Join a group
+ */
+exports.getJoinGroup = (req, res, next) => {
+  console.log(req.params.id);
+
+  const errors = req.validationErrors();
+
+  if (errors) {
+    req.flash('errors', errors);
+    return res.redirect('/group');
+  }
+
+
+  let user;
+  User.findById(req.user.id)
+    .then(_user => {
+      user = _user;
+      return Group.findById(req.params.id);
+    }).then(group => {
+      if (user._id in group.students) {
+        res.redirect('/group');
+        return;
+      }
+
+      group.students.push(user);
+      group.save().catch(err => { throw err });
+
+      user.groupsLearning.push(group);
+      user.save().catch(err => { throw err });
+
+      req.flash('success', { msg: `Joined group "${group.name}".` });
+      res.redirect('/group');
+    }).catch(err => next(err));
+};

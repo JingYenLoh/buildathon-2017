@@ -19,4 +19,11 @@ block content
 
   .page-header
     h3= user.isTeacher ? 'Groups You Follow' : 'Groups' 
-
+    .form-horizontal
+      .form-group
+        if groupsLearning.length !== 0
+          ul.col-sm-offset-5.col-sm-5
+            each group in groupsLearning
+              li= group.name
+        else
+          p.text-center You are not currently in any groups. :(
