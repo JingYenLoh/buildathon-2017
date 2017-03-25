@@ -10,3 +10,7 @@ h3, h1 {
 .secondHeader{
 	padding-top: 8%;
 }
+
+.radio{
+	display: inline;
+}
