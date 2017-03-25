@@ -4,3 +4,16 @@ block content
   .page-header
     h1= quiz.name
 
+    ol
+      each question in questions
+        li
+          span= question.question
+          ul
+            each choice in question.choices
+              li
+                span= choice
+
+    if user.isTeacher
+      a.btn.btn-primary(href=`${id}/add/`)
+        i.fa.fa-plus
+        | Add a question

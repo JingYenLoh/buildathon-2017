@@ -8,8 +8,9 @@ block content
         each quiz in quizzes
           li
             a(href=`quiz/${quiz._id}`)= quiz.name
-        else
-          p You have not created any quizzes.
-        a(href='/quiz/create').btn.btn-primary
-          i.fa.fa-users
-          | Create a Quiz
+    else
+      p You have not created any quizzes.
+    if user.isTeacher
+      a(href='/quiz/create').btn.btn-primary
+        i.fa.fa-users
+        | Create a Quiz

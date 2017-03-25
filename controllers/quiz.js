@@ -55,7 +55,7 @@ exports.postCreateQuiz = (req, res, next) => {
       })
       .then(() => {
         req.flash('success', { msg: `Created quiz "${req.body.name}"` });
-        return res.redirect('create');
+        return res.redirect(`/quiz/${quiz._id}`);
       })
       .catch(err => next(err));
   });
@@ -101,7 +101,7 @@ exports.postAddQuestion = (req, res, next) => {
     choices[3] = req.body['choice-4'];
 
     const question = new Question({
-      teacher: req.user,
+      quiz,
       question: req.body.question,
       choices,
       answer: req.answer
@@ -110,6 +110,7 @@ exports.postAddQuestion = (req, res, next) => {
     question.save()
       .then(() => {
         quiz.questions.push(question);
+        return quiz.save();
       })
       .then(() => {
         req.flash('success', { msg: 'Added question' });
@@ -124,11 +125,19 @@ exports.postAddQuestion = (req, res, next) => {
  * Question homepage idk
  */
 exports.getHome = (req, res) => {
+  let quiz;
   Quiz.findById(req.params.id)
-    .then((quiz) => {
+    .then((_quiz) => {
+      quiz = _quiz;
+      return Question.find({
+        _id: { $in: quiz.questions }
+      });
+    }).then((questions) => {
       res.render('quiz/home/index', {
         title: 'Create questions',
-        quiz
+        id: req.params.id,
+        quiz,
+        questions
       });
     });
 };
