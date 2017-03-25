@@ -374,3 +374,21 @@ exports.postForgot = (req, res, next) => {
     .then(() => res.redirect('/forgot'))
     .catch(next);
 };
+
+
+/**
+ * POST /account/teacher
+ * Update isTeacher status.
+ */
+exports.postUpdateTeacher = (req, res, next) => {
+  User.findById(req.user.id, (err, user) => {
+    if (err) { return next(err); }
+    console.log(user);
+    user.isTeacher = !user.isTeacher;
+    user.save((err) => {
+      if (err) { return next(err); }
+      req.flash('success', { msg: `You are now a ${user.isTeacher ? 'teacher' : 'student'}1` });
+      res.redirect('/account');
+    });
+  });
+};

@@ -109,3 +109,20 @@ block content
           p: a.text-danger(href='/account/unlink/linkedin') Unlink your LinkedIn account
         else
           p: a(href='/auth/linkedin') Link your LinkedIn account
+
+  .page-header
+    h3 Teachers
+  form.form-horizontal(action='/account/teacher', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      .col-sm-offset-3.col-sm-4
+        p A teacher can create and manage learning groups. You can revert this setting whenever you want.
+        if user.isTeacher
+          button.btn.btn-primary(type='submit')
+            i.fa.fa-graduation-cap
+            | I am a student
+        else
+          button.btn.btn-primary(type='submit')
+            i.fa.fa-graduation-cap
+            | I am a teacher
+

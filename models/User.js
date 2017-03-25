@@ -23,7 +23,12 @@ const userSchema = new mongoose.Schema({
     location: String,
     website: String,
     picture: String
-  }
+  },
+
+  isTeacher: Boolean,
+  groupsTeaching: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
+  groupsLearning: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
+
 }, { timestamps: true });
 
 /**
