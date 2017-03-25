@@ -126,4 +126,3 @@ exports.getHome = (req, res) => {
       });
     });
 };
-
