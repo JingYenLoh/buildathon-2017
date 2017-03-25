@@ -34,7 +34,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-const quizController = require('./controllers/quiz');
+const createController = require('./controllers/create');
 const groupController = require('./controllers/group');
 
 /**
@@ -142,7 +142,7 @@ app.get('/group', passportConfig.isAuthenticated, groupController.index);
 app.get('/group/create', passportConfig.isAuthenticated, groupController.getCreateGroup);
 app.post('/group/create', passportConfig.isAuthenticated, groupController.postCreateGroup);
 
-app.get('/quiz', quizController.index);
+app.get('/quiz/create', createController.index); // app.post('/quiz/create', quizDesignController.post);
 
 
 /**
