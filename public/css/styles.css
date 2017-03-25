@@ -2,9 +2,14 @@ h3, h1 {
 	text-align: center;
 }
 
+.fuss{
+	padding-top: 2%;
+}
+
 .pageContent{
 	padding-top: 20px;
 	text-align: center;
+	margin: inherit;
 }
 
 .secondHeader{
@@ -18,8 +23,12 @@ h3, h1 {
 
 ul {
 	padding-left: 0;
+	list-style-type: none;
+	margin: inherit;
+	padding-bottom: 10px;
 }
 
 .form-group {
 	text-align: center;
+	padding: 20px 0;
 }
