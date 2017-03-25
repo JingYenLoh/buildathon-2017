@@ -6,7 +6,7 @@ const Question = require('../models/Question');
 exports.index = (req, res) => {
   Quiz.find({
     _id: { $in: req.user.quizzes }
-  }).then(quizzes => {
+  }).then((quizzes) => {
     res.render('quiz/index', {
       title: 'Quizzes',
       quizzes
@@ -36,7 +36,7 @@ exports.postCreateQuiz = (req, res, next) => {
 
   if (errs) {
     req.flash('errors', errs);
-    return res.redirect('quiz/create');
+    return res.redirect('create');
   }
 
   User.findById(req.user.id, (err, user) => {
@@ -51,51 +51,12 @@ exports.postCreateQuiz = (req, res, next) => {
     quiz.save()
       .then(() => {
         user.quizzes.push(quiz);
-        user.save();
+        return user.save();
       })
       .then(() => {
         req.flash('success', { msg: `Created quiz "${req.body.name}"` });
+        return res.redirect('create');
       })
-      .catch(err => next(err));
-  });
-};
-
-/**
- * POST /quiz/:id/add
- * Create a question
- */
-exports.postAddQuestion = (req, res, next) => {
-  req.assert('question', 'Please enter a question.').notEmpty();
-  req.assert('choices', 'Please enter your choices').notEmpty();
-  req.assert('answer', 'Please enter an answer.').notEmpty();
-
-  const errs = req.validationErrors();
-
-  if (errs) {
-    req.flash('errors', errs);
-    return res.redirect(`quiz/${req.params.id}/add`);
-  }
-
-  User.findById(req.user.id, (err, user) => {
-    if (err) { return next(err); }
-
-    const question = new Question({
-      teacher: req.user,
-      question: req.body.question,
-      // TODO:
-      // choice: req.
-      choices: req.body.choices,
-      answer: req.answer
-    });
-
-    question.save()
-      .then(() => {
-        user.questions.push(question);
-        // TODO: some weird shit regarding :id
-        // like do i need to select the question lol
-        // req.params.id
-      })
-      .then(() => req.flash('success', { msg: `Created question "${req.body.name}` }))
       .catch(err => next(err));
   });
 };
@@ -104,14 +65,58 @@ exports.postAddQuestion = (req, res, next) => {
  * GET /quiz/:id/add
  * Form to create question
  */
-exports.getAddQuestion = (req, res) => {
+exports.getAddQuestion = (req, res, next) => {
   Quiz.findById(req.params.id)
     .then((quiz) => {
       res.render('quiz/home/add', {
         title: quiz.name,
-        quiz
+        quiz,
+        id: req.params.id
       });
+    }).catch(err => next(err));
+};
+
+/**
+ * POST /quiz/:id/add
+ * Create a question
+ */
+exports.postAddQuestion = (req, res, next) => {
+  req.assert('question', 'Please enter a question.').notEmpty();
+  req.assert('answer', 'Please select an answer.').notEmpty();
+
+  const errs = req.validationErrors();
+
+  if (errs) {
+    req.flash('errors', errs);
+    return res.redirect('add');
+  }
+
+  Quiz.findById(req.params.id, (err, quiz) => {
+    if (err) { return next(err); }
+
+    const choices = [];
+    choices[0] = req.body['choice-1'];
+    choices[1] = req.body['choice-2'];
+    choices[2] = req.body['choice-3'];
+    choices[3] = req.body['choice-4'];
+
+    const question = new Question({
+      teacher: req.user,
+      question: req.body.question,
+      choices,
+      answer: req.answer
     });
+
+    question.save()
+      .then(() => {
+        quiz.questions.push(question);
+      })
+      .then(() => {
+        req.flash('success', { msg: 'Added question' });
+        res.redirect('add');
+      })
+      .catch(err => next(err));
+  });
 };
 
 /**

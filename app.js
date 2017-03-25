@@ -138,17 +138,19 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.post('/account/teacher', passportConfig.isAuthenticated, userController.postUpdateTeacher);
+
 app.get('/group', passportConfig.isAuthenticated, groupController.index);
 app.get('/group/create', passportConfig.isAuthenticated, groupController.getCreateGroup);
 app.post('/group/create', passportConfig.isAuthenticated, groupController.postCreateGroup);
-app.get('/group/join/:id', passportConfig.isAuthenticated, groupController.getJoinGroup);
 app.get('/group/:id', passportConfig.isAuthenticated, groupController.getHome);
+app.get('/group/join/:id', passportConfig.isAuthenticated, groupController.getJoinGroup);
 
-app.post('/quiz/:id/add', quizController.postAddQuestion);
-app.post('/quiz/home/add', quizController.getAddQuestion);
-app.get('/quiz/create', quizController.getCreateQuiz);
-app.get('/quiz/home', quizController.getHome);
 app.get('/quiz', quizController.index);
+app.get('/quiz/create', quizController.getCreateQuiz);
+app.post('/quiz/create', quizController.postCreateQuiz);
+app.get('/quiz/:id', quizController.getHome);
+app.get('/quiz/:id/add', quizController.getAddQuestion);
+app.post('/quiz/:id/add', quizController.postAddQuestion);
 
 
 /**
