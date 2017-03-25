@@ -34,7 +34,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-const quizController = require('./controllers/quiz');
+const createController = require('./controllers/create');
 
 /**
  * API keys and Passport configuration.
@@ -137,7 +137,7 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.post('/account/teacher', passportConfig.isAuthenticated, userController.postUpdateTeacher);
 
-app.get('/quiz', quizController.index);
+app.get('/quiz/create', createController.index); // app.post('/quiz/create', quizDesignController.post);
 
 /**
  * API examples routes.
