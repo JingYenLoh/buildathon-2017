@@ -1,7 +1,6 @@
 h3, h1 {
 	text-align: center;
 }
-
 .fuss{
 	padding-top: 2%;
 }
@@ -15,8 +14,9 @@ h3, h1 {
 .secondHeader{
 	padding-top: 8%;
 }
-
-
+.radio{
+	display: inline;
+}
 .groupContent{
 	padding: 20px 0;
 }
