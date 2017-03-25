@@ -10,3 +10,11 @@ h3, h1 {
 .secondHeader{
 	padding-top: 8%;
 }
+
+ul {
+	padding-left: 0;
+}
+
+.form-group {
+	text-align: center;
+}
