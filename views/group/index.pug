@@ -7,17 +7,24 @@ block content
       .form-horizontal
         .form-group
           if groupsTeaching.length !== 0
-            ul.col-sm-offset-5.col-sm-5
+            ul
               each group in groupsTeaching
-                li= group.name
+                li
+                  a(href=`group/${group._id}`)= group.name
           else
-            p.text-center You do not currently teach any groups. :(
-          .col-sm-offset-5.col-md-5 
-            a(href='/group/create').btn.btn-primary
-              i.fa.fa-users
-              | Create a Group
+            p You are not teaching any group currently.
+          a(href='/group/create').btn.btn-primary
+            i.fa.fa-users
+            | Create a Group
 
   .page-header
     h3= user.isTeacher ? 'Groups You Follow' : 'Groups' 
-
-//- sadfsad
+    .form-horizontal
+      .form-group
+        if groupsLearning.length !== 0
+          ul
+            each group in groupsLearning
+              li
+                a(href=`group/${group._id}`)= group.name
+        else
+          p You are not following any group currently.
