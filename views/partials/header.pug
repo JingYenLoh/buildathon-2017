@@ -13,17 +13,12 @@
       ul.nav.navbar-nav
         li(class=(title == 'Home') ? 'active' : undefined)
           a(href='/') Home
-        li(class=(title == 'Groups') ? 'active' : undefined)
-          a(href='/group') Groups
-        li(class=(title == 'Quizzes') ? 'active' : undefined)
-          a(href='/quiz') Quizzes
-        li(class=(title == 'About') ? 'active' : undefined)
-          a(href='/about') About
-        li(class=(title == 'Contact') ? 'active' : undefined)
-          a(href='/contact') Contact
+        if user
+          li(class=(title == 'Groups') ? 'active' : undefined)
+            a(href='/group') Groups
+          li(class=(title == 'Quizzes') ? 'active' : undefined)
+            a(href='/quiz') Quizzes
 
-        li
-          a(href='/status') Status
       ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title == 'Login') ? 'active' : undefined)
