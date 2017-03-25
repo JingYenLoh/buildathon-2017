@@ -110,12 +110,11 @@ block content
         else
           p: a(href='/auth/linkedin') Link your LinkedIn account
 
-  .page-header
-    h3 Teachers
+  h3 Teachers
   form.form-horizontal(action='/account/teacher', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-        p A teacher can create and manage learning groups. You can revert this setting whenever you want.
+        p.form-group A teacher can create and manage learning groups. You can revert this setting whenever you want.
         if user.isTeacher
           button.btn.btn-primary(type='submit')
             i.fa.fa-graduation-cap
