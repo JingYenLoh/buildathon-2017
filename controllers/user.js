@@ -386,7 +386,7 @@ exports.postUpdateTeacher = (req, res, next) => {
     user.isTeacher = !user.isTeacher;
     user.save((err) => {
       if (err) { return next(err); }
-      req.flash('success', { msg: `You are now a ${user.isTeacher ? 'teacher' : 'student'}1` });
+      req.flash('success', { msg: `You are now a ${user.isTeacher ? 'teacher' : 'student'}!` });
       res.redirect('/account');
     });
   });
