@@ -9,7 +9,8 @@ block content
           if groupsTeaching.length !== 0
             ul.col-sm-offset-5.col-sm-5
               each group in groupsTeaching
-                li= group.name
+                li
+                  a(href=`group/${group._id}`)= group.name
           else
             p.text-center You do not currently teach any groups. :(
           .col-sm-offset-5.col-md-5 
@@ -24,6 +25,7 @@ block content
         if groupsLearning.length !== 0
           ul.col-sm-offset-5.col-sm-5
             each group in groupsLearning
-              li= group.name
+              li
+                a(href=`group/${group._id}`)= group.name
         else
           p.text-center You are not currently in any groups. :(

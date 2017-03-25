@@ -82,7 +82,6 @@ exports.getJoinGroup = (req, res, next) => {
     return res.redirect('/group');
   }
 
-
   let user;
   User.findById(req.user.id)
     .then(_user => {
@@ -104,3 +103,18 @@ exports.getJoinGroup = (req, res, next) => {
       res.redirect('/group');
     }).catch(err => next(err));
 };
+
+/**
+ * GET /group/:id
+ * Homepage of the group
+ */
+exports.getHome = (req, res) => {
+  Group.findById(req.params.id)
+    .then(group => {
+      res.render('group/home', {
+        title: group.name,
+        group
+      });
+    });
+};
+
