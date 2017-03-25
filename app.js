@@ -145,6 +145,7 @@ app.get('/group/join/:id', passportConfig.isAuthenticated, groupController.getJo
 app.get('/group/:id', passportConfig.isAuthenticated, groupController.getHome);
 
 app.get('/quiz/create', quizController.getCreateQuiz);
+app.get('/quiz/home', quizController.getHome);
 app.get('/quiz', quizController.index); // app.post('/quiz/create', quizDesignController.post);
 
 
