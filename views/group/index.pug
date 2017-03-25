@@ -3,19 +3,20 @@ extends ../layout
 block content
   if user.isTeacher
     .page-header
-      h3 Groups you Teach
+      h3 Groups You Teach
       .form-horizontal
         .form-group
-          ul
-            each group in groupsTeaching
-              li= group.name
-            else
-              li You do not currently teach any groups. :(
-          .col-sm-offset-3.col-sm-4
+          if groupsTeaching.length !== 0
+            ul.col-sm-offset-5.col-sm-5
+              each group in groupsTeaching
+                li= group.name
+          else
+            p.text-center You do not currently teach any groups. :(
+          .col-sm-offset-5.col-md-5 
             a(href='/group/create').btn.btn-primary
               i.fa.fa-users
               | Create a Group
 
   .page-header
-    h3 #{user.isTeacher ? 'Groups You Follow' : 'Groups'}
+    h3= user.isTeacher ? 'Groups You Follow' : 'Groups' 
 
