@@ -3,8 +3,13 @@ const User = require('../models/User');
 const Group = require('../models/Group');
 
 exports.index = (req, res) => {
-  res.render('quiz/index', {
-    title: 'Create'
+  Quiz.find({
+    _id: { $in: req.user.quizzes }
+  }).then(quizzes => {
+    res.render('quiz/index', {
+      title: 'Create',
+      quizzes
+    });
   });
 };
 
