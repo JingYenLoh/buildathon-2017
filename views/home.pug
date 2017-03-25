@@ -1,13 +1,16 @@
 extends layout
 
 block content
-  h1.fuss 
-    em 
-      strong Vocab App
-  p.lead.pageContent A context-based learning app intuitive for students, and customisable for teachers.
+  .jumbotron
+    h1.fuss 
+      i.form-group.fa.fa-comment.fa-2x
+      em 
+        strong Vocab Quiz
+    p.lead.pageContent A context-based learning app intuitive for students, and customisable for teachers.
+  
   .container
     hr
-    .row.text-center.secondHeader
+    .row.text-center
       .col-sm-12
         h3 QUIZ THYSELF
         p.lead Click to go to the quiz
@@ -21,7 +24,7 @@ block content
         p.lead Customise the functionality of the quiz!
         p
           a.btn.btn-primary(href='/quiz/create', role='button') 
-            i.fa.fa-cogs
+            i.fa.fa-cog.fa-spin
             |  Customise »
 
       .col-sm-6
