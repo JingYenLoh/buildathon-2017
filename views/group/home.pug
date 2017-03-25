@@ -3,3 +3,16 @@ extends ../layout
 block content
   .page-header
     h1= group.name
+    .form-horizontal
+      .form-group
+        p Invite Students with this link: 
+        pre= join
+      .form-group
+        if quizzes.length !== 0
+          ul
+            each quiz in quizzes
+              li
+                a(href=`quiz/${quiz._id}`)= quiz.name
+        a(href='/quiz').btn.btn-primary
+          i.fa.fa-pencil
+          | Add a Quiz

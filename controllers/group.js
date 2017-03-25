@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const Group = require('../models/Group');
+const Quiz = require('../models/Quiz');
 
 exports.index = (req, res) => {
   let groupsTeaching;
@@ -109,11 +110,19 @@ exports.getJoinGroup = (req, res, next) => {
  * Homepage of the group
  */
 exports.getHome = (req, res) => {
+  let group
   Group.findById(req.params.id)
-    .then(group => {
+    .then(_group => {
+      group = _group;
+      return Quiz.find({
+        _id: { $in: group.quizzes }
+      });
+    }).then(quizzes => {
       res.render('group/home', {
         title: group.name,
-        group
+        group,
+        quizzes,
+        join: `${req.protocol}://${req.get('host')}/group/join/${req.params.id}`
       });
     });
 };
