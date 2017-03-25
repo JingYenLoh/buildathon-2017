@@ -18,9 +18,6 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
-const multer = require('multer');
-
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -32,10 +29,10 @@ dotenv.load({ path: '.env' });
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
-const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const quizController = require('./controllers/quiz');
 const groupController = require('./controllers/group');
+const statsController = require('./controllers/stats');
 
 /**
  * API keys and Passport configuration.
@@ -153,6 +150,8 @@ app.get('/quiz/:id/add', passportConfig.isAuthenticated, quizController.getAddQu
 app.post('/quiz/:id/add', passportConfig.isAuthenticated, quizController.postAddQuestion);
 app.get('/quiz/:id/:index', passportConfig.isAuthenticated, quizController.getQuestion);
 app.post('/quiz/:id/:index', passportConfig.isAuthenticated, quizController.postQuestion);
+
+app.get('/stats', statsController.index);
 
 
 /**
