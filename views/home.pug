@@ -1,32 +1,34 @@
 extends layout
 
 block content
-  h1 Vocab App
+  h1.fuss 
+    em 
+      strong Vocab App
   p.lead.pageContent A context-based learning app intuitive for students, and customisable for teachers.
   .container
     hr
     .row.text-center.secondHeader
       .col-sm-12
-        h2 QUIZ THYSELF
-        p Button for the quiz...?
+        h3 QUIZ THYSELF
+        p.lead Click to go to the quiz
         p
           a.btn.btn-primary(href='#', role='button') 
             i.fa.fa-clone
-            |  View details »
+            |  Quiz »
 
       .col-sm-6
-        h2 Teacher/Customisation
-        p Button for teacher to assess quiz customisation functionality?
+        h3 Teacher/Customisation
+        p.lead Customise the functionality of the quiz!
         p
-          a.btn.btn-primary(href='#', role='button') 
+          a.btn.btn-primary(href='/quiz/create', role='button') 
             i.fa.fa-cogs
-            |  View details »
+            |  Customise »
 
       .col-sm-6
-        h2 Scores/Metrics
-        p Some stats for self directed learning???
+        h3 Stats/Metrics
+        p.lead Stats and metrics for self-directed learning
         p
           a.btn.btn-primary(href='#', role='button') 
             i.fa.fa-hand-paper-o
-            |  View details »
+            |  Stats
 
