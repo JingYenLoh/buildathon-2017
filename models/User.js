@@ -29,7 +29,6 @@ const userSchema = new mongoose.Schema({
   groupsTeaching: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
   groupsLearning: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
   quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }]
-
 }, { timestamps: true });
 
 /**

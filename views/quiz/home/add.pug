@@ -1,32 +1,32 @@
-extends ../layout
+extends ../../layout
 
 block content
     h1 Quiz designer
     form( method='POST' action='/quiz/create')
-        div.form-group
+        .form-group
             label(for='question') Question:
             input#question.form-control(type='text', placeholder='Input your questions' name='question')
-        div.form-group
+        .form-group
             label(for='choice-1') Choice 1:
             input#choice-1.form-control(type='text', placeholder='Choice 1' name='choice-1')
             label(for='Answer') Answer: 
             input#answer-1.radio(type='radio', name='answer', value='answer-1') 
-        div.form-group
+        .form-group
             label(for='choice-2') Choice 2:
             input#choice-2.form-control(type='text', placeholder='Choice 2' name='choice-2')
             label(for='Answer') Answer: 
             input#answer-2.radio(type='radio', name='answer', value='answer-2')
-        div.form-group
+        .form-group
             label(for='choice-3') Choice 3:
             input#choice-3.form-control(type='text', placeholder='Choice 3' name='choice-3')
             label(for='Answer') Answer: 
             input#answer-3.radio(type='radio', name='answer', value='answer-3') 
-        div.form-group
+        .form-group
             label(for='choice-4') Choice 4:
             input#choice-4.form-control(type='text', placeholder='Choice 4' name='choice-4')
             label(for='Answer') Answer: 
             input#answer-4.radio(type='radio', name='answer', value='answer-4') 
-        div.form-group
+        .form-group
             label(for='meaning') Meaning:
             input#meaining.form-control(type='text', placeholder='Meaning/description for the answer')
         button.btn-primary(type='submit') Submit

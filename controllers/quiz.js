@@ -1,6 +1,7 @@
 const Quiz = require('../models/Quiz');
 const User = require('../models/User');
-const Group = require('../models/Group');
+// const Group = require('../models/Group');
+const Question = require('../models/Question');
 
 exports.index = (req, res) => {
   res.render('quiz/index', {
@@ -55,19 +56,69 @@ exports.postCreateQuiz = (req, res, next) => {
 };
 
 /**
- * GET /quiz/:id
- * specific quiz question
+ * POST /quiz/:id/add
+ * Create a question
  */
-exports.getHome = (req, res) => {
+exports.postAddQuestion = (req, res, next) => {
+  req.assert('question', 'Please enter a question.').notEmpty();
+  req.assert('choices', 'Please enter your choices').notEmpty();
+  req.assert('answer', 'Please enter an answer.').notEmpty();
+
+  const errs = req.validationErrors();
+
+  if (errs) {
+    req.flash('errors', errs);
+    return res.redirect(`quiz/${req.params.id}/add`);
+  }
+
+  User.findById(req.user.id, (err, user) => {
+    if (err) { return next(err); }
+
+    const question = new Question({
+      teacher: req.user,
+      question: req.body.question,
+      // TODO:
+      // choice: req.
+      choices: req.body.choices,
+      answer: req.answer
+    });
+
+    question.save()
+      .then(() => {
+        user.questions.push(question);
+        // TODO: some weird shit regarding :id
+        // like do i need to select the question lol
+        // req.params.id
+      })
+      .then(() => req.flash('success', { msg: `Created question "${req.body.name}` }))
+      .catch(err => next(err));
+  });
+};
+
+/**
+ * GET /quiz/:id/add
+ * Form to create question
+ */
+exports.getAddQuestion = (req, res) => {
   Quiz.findById(req.params.id)
     .then((quiz) => {
-      res.render('quiz/home', {
+      res.render('quiz/home/add', {
         title: quiz.name,
         quiz
       });
     });
 };
 
-// exports.postCreateQuiz = (req, res, next) => {
-
-// }
+/**
+ * GET /quiz/home
+ * Question homepage idk
+ */
+exports.getHome = (req, res) => {
+  Quiz.findById(req.params.id)
+    .then((quiz) => {
+      res.render('quiz/home/index', {
+        title: 'Create questions',
+        quiz
+      });
+    });
+};

@@ -144,9 +144,11 @@ app.post('/group/create', passportConfig.isAuthenticated, groupController.postCr
 app.get('/group/join/:id', passportConfig.isAuthenticated, groupController.getJoinGroup);
 app.get('/group/:id', passportConfig.isAuthenticated, groupController.getHome);
 
+app.post('/quiz/:id/add', quizController.postAddQuestion);
+app.post('/quiz/home/add', quizController.getAddQuestion);
 app.get('/quiz/create', quizController.getCreateQuiz);
 app.get('/quiz/home', quizController.getHome);
-app.get('/quiz', quizController.index); // app.post('/quiz/create', quizDesignController.post);
+app.get('/quiz', quizController.index);
 
 
 /**
