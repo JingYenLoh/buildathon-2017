@@ -383,7 +383,6 @@ exports.postForgot = (req, res, next) => {
 exports.postUpdateTeacher = (req, res, next) => {
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }
-    console.log(user);
     user.isTeacher = !user.isTeacher;
     user.save((err) => {
       if (err) { return next(err); }
