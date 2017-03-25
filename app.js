@@ -35,6 +35,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const quizController = require('./controllers/quiz');
+const groupController = require('./controllers/group');
 
 /**
  * API keys and Passport configuration.
@@ -136,6 +137,9 @@ app.post('/account/password', passportConfig.isAuthenticated, userController.pos
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 app.post('/account/teacher', passportConfig.isAuthenticated, userController.postUpdateTeacher);
+app.get('/group', passportConfig.isAuthenticated, groupController.index);
+app.get('/group/create', passportConfig.isAuthenticated, groupController.getCreateGroup);
+app.post('/group/create', passportConfig.isAuthenticated, groupController.postCreateGroup);
 
 app.get('/quiz', quizController.index);
 
