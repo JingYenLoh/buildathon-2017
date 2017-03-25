@@ -1,0 +1,23 @@
+extends ../../layout
+
+block content
+  .page-header
+    h1= quiz.name
+
+    form.form-horizontal(action=`/quiz/${id}/${index}`, method='POST')
+      input(type='hidden', name='_csrf', value=_csrf)
+      input(type='hidden', name='points', value=points)
+      input(type='hidden', name='pointsTotal', value=pointsTotal)
+      .form-group
+        p.col-sm-7= question.question
+      .form-group
+        each choice, j in question.choices
+          .col-sm-7
+            .col-sm-1
+              input.form-control(type='radio', value=j+1, name=`answer`)
+            .col-sm-6
+              p.col-sm-6= choice
+      .form-group
+        button.btn.btn-primary(type='submit')
+          | Next 
+          i.fa.fa-arrow-right

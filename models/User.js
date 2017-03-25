@@ -28,7 +28,15 @@ const userSchema = new mongoose.Schema({
   isTeacher: Boolean,
   groupsTeaching: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
   groupsLearning: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
-  quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }]
+  quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }],
+  quizzesCompleted: [{
+    quiz: { type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' },
+    points: Number
+  }],
+  questionsCompleted: [{
+    question: { type: mongoose.Schema.Types.ObjectId, ref: 'Question' },
+    points: Number
+  }]
 }, { timestamps: true });
 
 /**

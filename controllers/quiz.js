@@ -104,7 +104,7 @@ exports.postAddQuestion = (req, res, next) => {
       quiz,
       question: req.body.question,
       choices,
-      answer: req.answer
+      answer: req.body.answer
     });
 
     question.save()
@@ -121,7 +121,7 @@ exports.postAddQuestion = (req, res, next) => {
 };
 
 /**
- * GET /quiz/home
+ * GET /quiz/:id
  * Question homepage idk
  */
 exports.getHome = (req, res) => {
@@ -138,6 +138,89 @@ exports.getHome = (req, res) => {
         id: req.params.id,
         quiz,
         questions
+      });
+    });
+};
+
+/**
+ * GET /quiz/:id/:index
+ * Display a question
+ */
+exports.getQuestion = (req, res) => {
+  let quiz;
+  Quiz.findById(req.params.id)
+    .then((_quiz) => {
+      quiz = _quiz;
+      return Question.find({
+        _id: { $in: quiz.questions }
+      });
+    }).then((questions) => {
+      res.render('quiz/home/question', {
+        title: `${quiz.name} - Question ${req.params.index}`,
+        id: req.params.id,
+        index: req.params.index,
+        quiz,
+        points: 0,
+        pointsTotal: 0,
+        question: questions[req.params.index - 1]
+      });
+    });
+};
+
+/**
+ * POST /quiz/:id/:index
+ * Solve a question
+ */
+const randomChoice = array => array[Math.floor(Math.random() * array.length)];
+exports.postQuestion = (req, res, next) => {
+  let quiz;
+  Quiz.findById(req.params.id)
+    .then((_quiz) => {
+      quiz = _quiz;
+      return Question.find({
+        _id: { $in: quiz.questions }
+      });
+    }).then((questions) => {
+      const index = parseInt(req.params.index, 10);
+      const answer = parseInt(req.body.answer, 10);
+      const question = questions[index - 1];
+
+      let points = parseInt(req.body.points, 10);
+      let pointsTotal = parseInt(req.body.pointsTotal, 10);
+      if (question.answer !== answer) {
+        req.flash('errors', { msg: randomChoice([
+          'Wrong... Try again!',
+          'Hmm, that\'s not correct.',
+          'That\'s not right.'
+        ]) });
+        points--;
+      } else {
+        req.flash('success', { msg: randomChoice([
+          'Correct!',
+          'Indeed!',
+          'Genius!',
+          'That\'s right!',
+          'Very good!'
+        ]) });
+        points += 3;
+        pointsTotal += points;
+        if (index >= questions.length) {
+          res.user.quizzesCompleted.push({ quiz, pointsTotal });
+          res.redirect(`/quiz/${req.params.id}`);
+        } else {
+          res.redirect(index + 1);
+        }
+      }
+      req.user.questionsCompleted.push({ question, points });
+      req.user.save().catch(err => next(err));
+      res.render('quiz/home/question', {
+        title: `${quiz.name} - Question ${req.params.index}`,
+        id: req.params.id,
+        index: req.params.index,
+        quiz,
+        points,
+        pointsTotal,
+        question
       });
     });
 };

@@ -4,16 +4,20 @@ block content
   .page-header
     h1= quiz.name
 
-    ol
-      each question in questions
-        li
-          span= question.question
-          ul
-            each choice in question.choices
-              li
-                span= choice
-
     if user.isTeacher
-      a.btn.btn-primary(href=`${id}/add/`)
+      ol
+        each question in questions
+          li
+            span= question.question
+            ul
+              each choice in question.choices
+                li
+                  span= choice
+      a.btn.btn-primary(href=`${id}/add`)
         i.fa.fa-plus
         | Add a question
+
+    a.btn.btn-primary(href=`${id}/1`)
+      i.fa.fa-pencil
+      | Start the quiz!
+
