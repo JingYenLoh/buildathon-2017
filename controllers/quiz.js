@@ -104,7 +104,8 @@ exports.postAddQuestion = (req, res, next) => {
       quiz,
       question: req.body.question,
       choices,
-      answer: req.body.answer
+      answer: req.body.answer,
+      meaning: req.body.meaning, 
     });
 
     question.save()
@@ -192,7 +193,7 @@ exports.postQuestion = (req, res, next) => {
           'Wrong... Try again!',
           'Hmm, that\'s not correct.',
           'That\'s not right.'
-        ]) });
+        ]) + ' ' + question.meaning });
         points--;
       } else {
         req.flash('success', { msg: randomChoice([
@@ -205,13 +206,13 @@ exports.postQuestion = (req, res, next) => {
         points += 3;
         pointsTotal += points;
         if (index >= questions.length) {
-          res.user.quizzesCompleted.push({ quiz, pointsTotal });
+          // res.user.quizzesCompleted.push({ quiz, pointsTotal });
           res.redirect(`/quiz/${req.params.id}`);
         } else {
           res.redirect(index + 1);
         }
       }
-      req.user.questionsCompleted.push({ question, points });
+      // req.user.questionsCompleted.push({ question, points });
       req.user.save().catch(err => next(err));
       res.render('quiz/home/question', {
         title: `${quiz.name} - Question ${req.params.index}`,
