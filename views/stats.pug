@@ -22,11 +22,23 @@ block content
         data.addColumn('number', 'Incorrect Answer');
         data.addColumn('number', 'First Attempts');
         data.addRows([
-          ['myriad', 3, 1],
-          ['hibernate', 1, 3],
+          ['myriad', 9, 1],
+          ['hibernate', 6, 3],
+          ['enunciate', 5, 6],
+          ['hustle', 5, 8],
+          ['intrinsic', 5, 9],
+          ['silence', 6, 10],
         ]);
 
-        var chart = new google.visualization.BarChart(document.getElementById('mistakes'));
+        var chart = new google.visualization.PieChart(document.getElementById('mistakes'));
+        chart.draw(data, {
+            'title':'Mistakes made by Students',
+            'width':800,
+            'height':600
+        });
+
+        var chart = new
+        google.visualization.BarChart(document.getElementById('bar'));
         chart.draw(data, {
             'title':'Mistakes made by Students',
             'width':800,
@@ -36,4 +48,5 @@ block content
       }
 
     #mistakes
+    #bar
 
