@@ -39,8 +39,19 @@ ul {
 img{
 	max-width: 25%;
 	max-height: 25%;
-
 }
 .mascot{
 	float:left;
+}
+.navbar-default{
+	background-color: #11A3ED;
+}
+.btn-primary{
+	background-color: #81CB29;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus{
+	color: white;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus{
+	color: white;
 }
