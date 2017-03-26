@@ -105,7 +105,7 @@ exports.postAddQuestion = (req, res, next) => {
       question: req.body.question,
       choices,
       answer: req.body.answer,
-      meaning: req.body.meaning, 
+      meaning: req.body.meaning,
     });
 
     question.save()
@@ -193,7 +193,7 @@ exports.postQuestion = (req, res, next) => {
           'Wrong... Try again!',
           'Hmm, that\'s not correct.',
           'That\'s not right.'
-        ]) + ' ' + question.meaning });
+        ]) + ' The correct answer is: ' + question.choices[question.answer - 1] + '. ' + question.meaning });
         points--;
       } else {
         req.flash('success', { msg: randomChoice([

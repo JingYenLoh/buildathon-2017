@@ -12,7 +12,7 @@ block content
         p.col-sm-7= question.question
       .form-group
         each choice, j in question.choices
-          .col-sm-7
+          .col-sm-12
             .col-sm-1
               input.form-control(type='radio', value=j+1, name=`answer`)
             .col-sm-6
