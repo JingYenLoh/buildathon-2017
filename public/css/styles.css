@@ -36,3 +36,11 @@ ul {
 .jumbotron{
 	padding: 10px 0;
 }
+img{
+	max-width: 25%;
+	max-height: 25%;
+
+}
+.mascot{
+	float:left;
+}
