@@ -148,6 +148,7 @@ app.post('/quiz/create', passportConfig.isAuthenticated, quizController.postCrea
 app.get('/quiz/:id', passportConfig.isAuthenticated, quizController.getHome);
 app.get('/quiz/:id/add', passportConfig.isAuthenticated, quizController.getAddQuestion);
 app.post('/quiz/:id/add', passportConfig.isAuthenticated, quizController.postAddQuestion);
+app.get('/quiz/:id/complete', passportConfig.isAuthenticated, quizController.getComplete);
 app.get('/quiz/:id/:index', passportConfig.isAuthenticated, quizController.getQuestion);
 app.post('/quiz/:id/:index', passportConfig.isAuthenticated, quizController.postQuestion);
 

@@ -207,7 +207,7 @@ exports.postQuestion = (req, res, next) => {
         pointsTotal += points;
         if (index >= questions.length) {
           // res.user.quizzesCompleted.push({ quiz, pointsTotal });
-          res.redirect(`/quiz/${req.params.id}`);
+          res.redirect(`/quiz/${req.params.id}/complete`);
         } else {
           res.redirect(index + 1);
         }
@@ -225,3 +225,14 @@ exports.postQuestion = (req, res, next) => {
       });
     });
 };
+
+/**
+ * GET /quiz/:id/complete
+ * Display form for creating quiz
+ */
+exports.getComplete = (req, res) => {
+  res.render('quiz/home/complete', {
+    title: 'Quiz Completed'
+  });
+};
+
