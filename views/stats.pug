@@ -19,8 +19,8 @@ block content
         // Create the data table.
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'Word');
-        data.addColumn('number', 'Incorrect Answer');
         data.addColumn('number', 'First Attempts');
+        data.addColumn('number', 'Incorrect Answer');
         data.addRows([
           ['myriad', 9, 1],
           ['hibernate', 6, 3],
@@ -40,7 +40,15 @@ block content
         var chart = new
         google.visualization.BarChart(document.getElementById('bar'));
         chart.draw(data, {
-            'title':'Mistakes made by Students',
+            'title':'What needs work',
+            'width':800,
+            'height':600
+        });
+
+        var chart = new
+        google.visualization.LineChart(document.getElementById('line'));
+        chart.draw(data, {
+            'title':'Mistakes over time',
             'width':800,
             'height':600
         });
@@ -49,4 +57,5 @@ block content
 
     #mistakes
     #bar
+    #line
 
